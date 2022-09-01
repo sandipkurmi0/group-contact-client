@@ -40,6 +40,7 @@ const Register = () => {
       password,
     };
     const responseRegister = await registerUser(data);
+    console.log(responseRegister);
     if (responseRegister.status === 201) {
       const Toast = Swal.mixin({
         toast: true,
@@ -58,6 +59,23 @@ const Register = () => {
         title: "Register in successfully",
       });
       navigate("/login");
+    } else if (responseRegister.status === 400) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "bootom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Register Uccessfully",
+      });
     }
     setName("");
     setEmail("");

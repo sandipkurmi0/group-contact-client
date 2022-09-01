@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AppBar, Toolbar, styled } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -17,7 +17,9 @@ const NavBar = () => {
 
   const auth = localStorage.getItem("user");
 
-  useEffect(() => {
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     Swal.fire({
       position: "bootom",
       icon: "success",
@@ -25,12 +27,6 @@ const NavBar = () => {
       showConfirmButton: false,
       timer: 2000,
     });
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-
     navigate("/register");
   };
 

@@ -2,6 +2,8 @@ import axios from "axios";
 
 const URL = "https://group-contact-api.herokuapp.com/api";
 
+//group api
+
 export const addGroup = async (data) => {
   try {
     return await axios.post(`${URL}/uploadCsvByGroup`, data, {
@@ -23,6 +25,42 @@ export const deleteContactByGroup = async (id) => {
     });
   } catch (error) {
     console.log("error while deleting contact by group in database", error);
+  }
+};
+
+export const getGroupListName = async () => {
+  try {
+    return await axios.get(`${URL}/groupList`, {
+      headers: {
+        authorization: JSON.parse(localStorage.getItem("token")),
+      },
+    });
+  } catch (error) {
+    console.log(`error while calling `, error);
+  }
+};
+
+export const getGroupListById = async (id) => {
+  try {
+    return await axios.get(`${URL}/group/${id}`, {
+      headers: {
+        authorization: JSON.parse(localStorage.getItem("token")),
+      },
+    });
+  } catch (error) {
+    console.log(`error while calling getUser api`, error);
+  }
+};
+
+export const editGroupList = async (id, data) => {
+  try {
+    return await axios.put(`${URL}/group/${id}`, data, {
+      headers: {
+        authorization: JSON.parse(localStorage.getItem("token")),
+      },
+    });
+  } catch (error) {
+    console.log(`error while calling getUser api`, error);
   }
 };
 
@@ -102,59 +140,8 @@ export const editContactDetails = async (id, data) => {
     console.log(`error while edit contact data`, error);
   }
 };
-// /api/deleteContactByGroup/:id
-// /api/getContactBygroup/:id
 
-//group api
-
-export const getGroupListName = async () => {
-  try {
-    return await axios.get(`${URL}/groupList`, {
-      headers: {
-        authorization: JSON.parse(localStorage.getItem("token")),
-      },
-    });
-  } catch (error) {
-    console.log(`error while calling `, error);
-  }
-};
-
-export const getGroupListById = async (id) => {
-  try {
-    return await axios.get(`${URL}/group/${id}`, {
-      headers: {
-        authorization: JSON.parse(localStorage.getItem("token")),
-      },
-    });
-  } catch (error) {
-    console.log(`error while calling getUser api`, error);
-  }
-};
-
-export const editGroupList = async (id, data) => {
-  try {
-    return await axios.put(`${URL}/group/${id}`, data, {
-      headers: {
-        authorization: JSON.parse(localStorage.getItem("token")),
-      },
-    });
-  } catch (error) {
-    console.log(`error while calling getUser api`, error);
-  }
-};
-
-// export const deleteGroupList = async (id) => {
-//   try {
-//     return await axios.delete(`${URL}/group/${id}`, {
-//       headers: {
-//         authorization: JSON.parse(localStorage.getItem("token")),
-//       },
-//     });
-//   } catch (error) {
-//     console.log(`error while calling delete user api `, error);
-//   }
-// };
-
+// user Auth
 export const loginUser = async (data) => {
   try {
     return await axios.post(`${URL}/login`, data);
@@ -167,6 +154,6 @@ export const registerUser = async (data) => {
   try {
     return await axios.post(`${URL}/user`, data);
   } catch (error) {
-    console.log(`error while register user in data base`);
+    console.log(`error while register user in data base`, error);
   }
 };
